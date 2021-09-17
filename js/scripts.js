@@ -1,11 +1,10 @@
 
-
 function createList(){
 
     const links = [
         {
           label: "Week1 notes",
-          url: "/week01/index.html"
+          url: "../WDD-330/week01/index.html"
         }
       ]
 
