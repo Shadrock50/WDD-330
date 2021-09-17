@@ -1,11 +1,13 @@
-const links = [
-    {
-      label: "Week1 notes",
-      url: "/week01/index.html"
-    }
-  ]
+
 
 function createList(){
+
+    const links = [
+        {
+          label: "Week1 notes",
+          url: "/week01/index.html"
+        }
+      ]
 
     links.forEach(fillInList());
 
