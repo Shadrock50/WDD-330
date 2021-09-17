@@ -9,7 +9,7 @@ function createList(){
         }
       ]
 
-    links.forEach(fillInList());
+    links.forEach(fillInList);
 
 }
 
