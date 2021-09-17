@@ -13,7 +13,7 @@ function createList(){
 
 function fillInList(x){
 
-    const ol = document.querySelector("#summaryOL");
+    const ol = document.getElementById("listOL");
     const li = document.createElement('li');
     var a = document.createElement("a");
 
