@@ -20,7 +20,7 @@ function fillInList(x){
     var a = document.createElement("a");
 
     a.textContent = x.label;
-    a.setAttribute('href', links.url);
+    a.setAttribute('href', x.url);
 
     li.appendChild(a);
 
