@@ -5,6 +5,10 @@ function createList(){
         {
           label: "Week1 notes",
           url: "../WDD-330/week01/index.html"
+        },
+        {
+          label: "Week1 notes",
+          url: "../WDD-330/week02/index.html"
         }
       ]
 
