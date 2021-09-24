@@ -7,7 +7,7 @@ function createList(){
           url: "../WDD-330/week01/index.html"
         },
         {
-          label: "Week1 notes",
+          label: "Week2 notes",
           url: "../WDD-330/week02/index.html"
         }
       ]
