@@ -3,12 +3,16 @@ function createList(){
 
     const links = [
         {
-          label: "Week1 notes",
+          label: "Week 1 notes",
           url: "../WDD-330/week01/index.html"
         },
         {
-          label: "Week2 notes",
+          label: "Week 2 notes",
           url: "../WDD-330/week02/index.html"
+        },
+        {
+          label: "Week 3 notes",
+          url: "../WDD-330/week03/index.html"
         }
       ]
 
