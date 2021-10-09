@@ -13,6 +13,10 @@ function createList(){
         {
           label: "Week 3 notes",
           url: "../WDD-330/week03/index.html"
+        },
+        {
+          label: "Week 4 notes",
+          url: "../WDD-330/week03/index.html"
         }
       ]
 
