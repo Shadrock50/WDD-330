@@ -294,6 +294,7 @@ footer ul :nth-child(3) {
 	font-size:17px;
 	padding:12px 22px;
 	text-decoration:none;
+  width: 200px;
 }
 .show:hover {
 	background-color:#3a7f9b;
