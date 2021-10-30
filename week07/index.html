@@ -18,7 +18,7 @@
 
           <ul style="list-style-type: none;">
             <li>Preface: These are the complex functions of JS. I need to pay attention.</li>
-            <li>1. call funtion sets this value according to object properties. 
+            <li>1. call funtion sets this value according to object properties. Why not just input the value directly by passing a class into the function?
               <pre>
                 <code>
                   const clark = { name: 'Clark' };
@@ -32,31 +32,59 @@
                 </code>
               </pre>
             </li>
-            <li>2. Strict mode gives more warnings and prohibits deprecated features.</li>
-            <li>3. Linting tools are used to target sloppy code</li>
-            <li>4. Use feature detection to build browser specific features.</li>
-            <li>5. Alerts stop a function from running until dismissed <b>*IMPORTANT*</b></li>
-            <li>6. Console.trace() returns the stack without an error. </li>
-            <li>7. I understand breakpoints. Chrome has them. </li>
-            <li>8. debugger function can be used to automatically pull it up</li>
-            <li>9. error objects can be custom created.</li>
-            <li>10. I understand try catch finally blocks</li>
+            <li>2. Cache object stores results for later access.
+              <pre>
+                <code>
+                  function square(x){
+                    square.cache = square.cache || {};
+                    if (!square.cache[x]) {
+                        square.cache[x] = x*x;
+                    }
+                    return square.cache[x]
+                    }
+                </code>
+              </pre>
+
+            </li>
+            <li>3. IIFE functions run when defined. Variables declared within an IFFE is removed after. Use strict mode in IIFEs</li>
+            <li>4. Functions can redefine themselves by redefining the function within. Variables are lost on redefinition</li>
+            <li>5. Recursion functions are understood. </li>
+            <li>6. Higher order functions return the results of a function. </li>
+            <li>7. Pure functions only take in what is given, do not change the external program, and always produce the same results.</li>
           </ul>
 
           <h2>Reading 2: Chapter 13</h2> 
 
           <ul style="list-style-type: none;">
-            <li>Preface: </li>
-            <li>1. The stack trace goes from the point of error down to the actual error point.</li>
-            <li>2. Strict mode gives more warnings and prohibits deprecated features.</li>
-            <li>3. Linting tools are used to target sloppy code</li>
-            <li>4. Use feature detection to build browser specific features.</li>
-            <li>5. Alerts stop a function from running until dismissed <b>*IMPORTANT*</b></li>
-            <li>6. Console.trace() returns the stack without an error. </li>
-            <li>7. I understand breakpoints. Chrome has them. </li>
-            <li>8. debugger function can be used to automatically pull it up</li>
-            <li>9. error objects can be custom created.</li>
-            <li>10. I understand try catch finally blocks</li>
+            <li>Preface: Ajax has always been a nightmare for me. </li>
+            <li>1. AJAX can be used to fetch information from the web.
+              <pre>
+                <code>
+                  fetch('https://example.com/data')
+                  .then( // code that handles the response )
+                  .catch( // code that runs if the server returns an error )
+                </code>
+              </pre>
+            </li>
+            <li>2. Fetch can return http codes. Can do things dependent on what comes in response. 
+              <pre>
+                <code>
+                  const url = 'https:example.com/data';
+
+                  fetch(url)
+                  .then((response) => {
+                  if(response.ok) {
+                  return response;
+                  }
+                  throw Error(response.statusText);
+                  })
+                  .then( response => // do something with response )
+                  .catch( error => console.log('There was an error!') )
+                </code>
+              </pre>
+
+            </li>
+            <li>3. response.text returns the response as plain text. .blob and .json are similar.</li>
           </ul>
 
       </li>
