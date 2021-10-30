@@ -25,6 +25,10 @@ function createList(){
         {
           label: "ToDo List",
           url:"../WDD-330/ToDo/index.html"
+        },
+        {
+          label: "week 7 notes",
+          url: "../WDD-330/week07/index.html"
         }
       ]
 
