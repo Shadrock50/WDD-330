@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WDD 330 portfolio - Shad Christopherson</title>
+        <link rel="stylesheet" href="../css/style.css" />
+        <script src="../js/scripts.js"></script>
+      </head>
+  <body>
+    <h1>WDD 330 portfolio</h1>
+    <h2>Week 8</h2>
+    <ul>
+      <li><a href="">Week 08 Team Activity</a></li><br>
+      <li>
+        <h2>Week 8 notes</h2> <p></p>
+        <br>
+        <h2>Reading 1: Chapter 11</h2> 
+
+          <ul style="list-style-type: none;">
+            <li>Preface: These are the complex functions of JS. I need to pay attention.</li>
+            <li>1. call funtion sets this value according to object properties. Why not just input the value directly by passing a class into the function?
+              <pre>
+                <code>
+                  const clark = { name: 'Clark' };
+                  const bruce = { name: 'Bruce' };
+
+                  sayHello.call(clark);
+                  << 'Hello, my name is Clarke'
+
+                  sayHello.call(bruce);
+                  << 'Hello, my name is Bruce'
+                </code>
+              </pre>
+            </li>
+            <li>2. Cache object stores results for later access.
+              <pre>
+                <code>
+                  function square(x){
+                    square.cache = square.cache || {};
+                    if (!square.cache[x]) {
+                        square.cache[x] = x*x;
+                    }
+                    return square.cache[x]
+                    }
+                </code>
+              </pre>
+
+            </li>
+            <li>3. IIFE functions run when defined. Variables declared within an IFFE is removed after. Use strict mode in IIFEs</li>
+            <li>4. Functions can redefine themselves by redefining the function within. Variables are lost on redefinition</li>
+            <li>5. Recursion functions are understood. </li>
+            <li>6. Higher order functions return the results of a function. </li>
+            <li>7. Pure functions only take in what is given, do not change the external program, and always produce the same results.</li>
+          </ul>
+
+          <h2>Reading 2: Chapter 13</h2> 
+
+          <ul style="list-style-type: none;">
+            <li>Preface: Ajax has always been a nightmare for me. </li>
+            <li>1. AJAX can be used to fetch information from the web.
+              <pre>
+                <code>
+                  fetch('https://example.com/data')
+                  .then( // code that handles the response )
+                  .catch( // code that runs if the server returns an error )
+                </code>
+              </pre>
+            </li>
+            <li>2. Fetch can return http codes. Can do things dependent on what comes in response. 
+              <pre>
+                <code>
+                  const url = 'https:example.com/data';
+
+                  fetch(url)
+                  .then((response) => {
+                  if(response.ok) {
+                  return response;
+                  }
+                  throw Error(response.statusText);
+                  })
+                  .then( response => // do something with response )
+                  .catch( error => console.log('There was an error!') )
+                </code>
+              </pre>
+
+            </li>
+            <li>3. response.text returns the response as plain text. .blob and .json are similar.</li>
+          </ul>
+
+      </li>
+    </ul>
+  </body>
+</html>
