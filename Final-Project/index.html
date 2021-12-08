@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>D&D NPC Generator</title>
+        <link rel="stylesheet" href="./style.css" />
+        <script src="./variables.js"></script>
+        <script src="./scripts.js"></script>
+</head>
+
+<body>
+
+    <div>
+        <form">
+      
+          <label for="genType">Select a Generation Type:</label>
+          <select id="genType" name="genType" onchange="getType()">
+            <option value="none">-- Choose One --</option>
+            <option value="npc">Generic NPC</option>
+            <option value="class">Class-based NPC</option>
+          </select>
+          <select id="gender" class="npc class reset" name="gender" style="display: none;">
+            <option value="none">-- Select Gender --</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+          <select id="profession" class="npc reset" name="profession" style="display: none;">
+            <option value="none">-- Choose Profession --</option>
+            <option value="Astrologer">Astrologer</option>
+            <option value="Alchemist">Alchemist</option>
+            <option value="Armorer">Armorer</option>
+            <option value="Cartographer">Cartographer</option>
+            <option value="Carpenter">Carpenter</option>
+            <option value="Chief">Chief</option>
+            <option value="Count">Count</option>
+            <option value="Duke">Duke</option>
+            <option value="Priest">Priest</option>
+            <option value="Scribe">Scribe</option>
+          
+            <!-- TO DO STILL -->
+          </select>
+
+        
+          <input type="submit" value="Generate" onclick="generateNPC()">
+        </form>
+    </div>
+
+    <br>
+
+    <div class="genLocation">
+
+    </div>
+
+</body>
+</html>
