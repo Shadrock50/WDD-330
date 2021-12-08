@@ -73,6 +73,7 @@ function npcGen(){
                 //Gets the characters name from separate API
                 randomAccess = getRandomInt(data['contents']['names'].length);
                 charName = data['contents']['names'][randomAccess];
+                console.log(charName, gender, profession, alignment, race, disposition);
 
             });
         });
