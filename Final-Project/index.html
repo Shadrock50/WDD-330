@@ -16,18 +16,18 @@
       
           <label for="genType">Select a Generation Type:</label>
           <select id="genType" name="genType" onchange="getType()">
-            <option value="none">-- Choose One --</option>
+            <option value="none" disabled selected>-- Choose One --</option>
             <option value="npc">Generic NPC</option>
             <option value="class">Class-based NPC</option>
           </select>
           <select id="gender" class="npc class reset" name="gender" style="display: none;">
-            <option value="none">-- Select Gender --</option>
+            <option value="none" disabled selected>-- Select Gender --</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
           <select id="profession" class="npc reset" name="profession" style="display: none;">
-            <option value="none">-- Choose Profession --</option>
+            <option value="none" disabled selected>-- Choose Profession --</option>
             <option value="Astrologer">Astrologer</option>
             <option value="Alchemist">Alchemist</option>
             <option value="Armorer">Armorer</option>
@@ -41,8 +41,12 @@
           
             <!-- TO DO STILL -->
           </select>
-
-        
+          <select id="class" class="class reset" name="class" style="display: none;">
+            <!-- Code is injected via JS -->
+          </select>
+          <select id="level" class="class reset" name="level" style="display: none;">
+            <!-- Code is injected via JS -->
+          </select>
           <input type="submit" value="Generate" onclick="generateNPC()">
         </form>
     </div>
