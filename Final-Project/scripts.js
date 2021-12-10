@@ -146,7 +146,27 @@ function npcGen(){
                 //Gets the characters name from separate API
                 randomAccess = getRandomInt(data['contents']['names'].length);
                 charName = data['contents']['names'][randomAccess];
-                console.log(charName, gender, profession, alignment, race, disposition);
+
+                let display = document.getElementById('genLocation');
+
+                var x = document.createElement("H2");
+                var t = document.createTextNode(charName);
+                x.appendChild(t);
+                display.appendChild(x);
+
+                var x = document.createElement("H4");
+                //x.setAttribute("value", dndClass[i]['url']);
+                var t = document.createTextNode(alignment + " " + race + " " + profession);
+                x.appendChild(t);
+                display.appendChild(x);
+
+                var x = document.createElement("P");
+                //x.setAttribute("value", dndClass[i]['url']);
+                var t = document.createTextNode("Disposition: " + disposition);
+                x.appendChild(t);
+                display.appendChild(x);
+
+                display.style.display = "flex";
 
             });
         });
@@ -185,10 +205,12 @@ function classGen(){
 
             //Getting specific race info.
             apiCall(baseDndURL, raceURL).then(data => {
-                console.log(data);
+
     
                 let speed = data['speed'];
                 let languages = data['languages'];
+                let race = data;
+                console.log(race);
 
                 if (data['language_options'] != undefined){
 
@@ -198,12 +220,15 @@ function classGen(){
 
                 }
 
-                let statsArray = getStats(data['ability_bonuses']);
+                let statArray = getStats(data);
 
                 //Getting specific Class info.  
                 apiCall(baseDndURL, dndClass).then(data => {
 
-                    console.log(data);
+                    let finalClass = data;
+                    console.log(finalClass);
+
+                    let health = getHP(statArray, finalClass, level);
 
                     //Should be the last API call.
                     apiCall(baseDndURL, '/api/alignments/').then(data => {
@@ -211,6 +236,31 @@ function classGen(){
                         //Gets a random alignment from API json
                         randomAccess = getRandomInt(data['results'].length)
                         let alignment = data['results'][randomAccess]['name'];
+
+                        //CREATE DOCUMENT
+
+                        let display = document.getElementById('genLocation');
+
+                        var x = document.createElement("H2");
+                        var t = document.createTextNode(charName);
+                        x.appendChild(t);
+                        display.appendChild(x);
+
+                        var x = document.createElement("H4");
+                        //x.setAttribute("value", dndClass[i]['url']);
+                        var t = document.createTextNode("Level " + level + " " + alignment + ' ' + race['name'] + " " + finalClass['name']);
+                        x.appendChild(t);
+                        display.appendChild(x);
+
+
+
+
+
+
+
+
+
+                        display.style.display = "flex";
 
                     });
                 });
@@ -224,8 +274,9 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
 
-function getStats(bonuses){
-
+function getStats(data){             
+                
+    let bonuses = data['ability_bonuses'];
     //Define the six stats at base.
     let str = 8;
     let dex = 8;
@@ -258,6 +309,7 @@ function getStats(bonuses){
         }
     }
 
+
     stats.push(str);//Convert individual stats to array. There's a better way to do this, but I don't have time. 
     stats.push(dex);
     stats.push(con);
@@ -265,14 +317,65 @@ function getStats(bonuses){
     stats.push(wis);
     stats.push(chr);
 
-    for (var i = 0; i < stats.length; i + i + 1){
+    for (var i = 0; i < stats.length; i = i + 1){
 
-        randomStat = getRandomInt(11); //Will add a random amount between 0 and 10.
+        randomStat = getRandomInt(11); //Will add a random amount between 0 and 10. (Simulating stat selection.)
         stats[i] = stats[i] + randomStat;
+
     }
 
-    console.log(stats);
+    return stats;
+}
 
+function getHP(stats, finalClass, level){
 
+    let hitDie = finalClass['hit_die']//Amount of possible HP per level.
+    let health = hitDie; //Starting health.
 
+    if (level > 1){//If level is 1, this is uneccessary. 
+
+        for (var i = 0; i < level - 1; i = i+1){ //All HP past level 1 is random based on hit die.
+
+            var randomHealth = getRandomInt(hitDie) + 1//my random function gets a value from 0-(max-1), I want 1-max. So add one.
+            health = health + randomHealth; 
+
+        }
+    }
+
+    //After getting initial health, need to calculate health from stats.
+    con = stats[2];//Constitution score. 
+    conMod = con - 10;
+    let healthMod = 0;
+
+    if (conMod < 0){
+
+        healthMod = -1; //This tests if Con is below ten. If it is, you subtract health instead of gain it. 
+
+    }
+    else if (conMod == 0){
+
+        healthMod = 0; //If Con is ten, then no health is gained or lost.
+
+    }
+    else {//Assuming con is positive 
+
+        for(var i = 1; i <= conMod; i = i + 1){
+
+            if (i%2 == 0){//Health bonus only increases for every two over ten.
+
+                healthMod = healthMod + 1;
+                
+            }
+        }
+
+    }
+    
+    //Health mod is then added for every level.
+    for (var i = 0; i < level; i = i+1){
+
+        health = health + healthMod; 
+
+    }
+
+    return health;
 }
