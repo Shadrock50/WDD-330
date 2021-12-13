@@ -149,21 +149,12 @@ function npcGen(){
 
                 let display = document.getElementById('genLocation');
 
-                var x = document.createElement("H2");
-                var t = document.createTextNode(charName);
-                x.appendChild(t);
-                display.appendChild(x);
+                var x = document.createElement("DIV");
+                x.setAttribute("class", 'genNPC');
+                x.innerHTML = "<h2 style='text-align: center;' class='genTitle'>" + charName + "</h2>" +
+                              "<h4 style='text-align: center;'>" + alignment + " " + race + " " + profession + "</h4>" +
+                              "<p>" + "Disposition: " + disposition + "</p>";
 
-                var x = document.createElement("H4");
-                //x.setAttribute("value", dndClass[i]['url']);
-                var t = document.createTextNode(alignment + " " + race + " " + profession);
-                x.appendChild(t);
-                display.appendChild(x);
-
-                var x = document.createElement("P");
-                //x.setAttribute("value", dndClass[i]['url']);
-                var t = document.createTextNode("Disposition: " + disposition);
-                x.appendChild(t);
                 display.appendChild(x);
 
                 display.style.display = "flex";
@@ -180,6 +171,12 @@ function classGen(){
     let gender = document.getElementById("gender").value;
     let dndClass = document.getElementById("class").value;
     let level = document.getElementById("level").value;
+
+    if (gender == "none" || level == "none" || dndClass == "none"){
+        //Returns after alerting user to fill in more info.
+        window.alert("Please select all available options!");
+        return
+    }
 
     //Gets a random name from simple name API
     let nameUrl;
@@ -198,6 +195,10 @@ function classGen(){
         randomAccess = getRandomInt(data['contents']['names'].length);
         charName = data['contents']['names'][randomAccess];
 
+        //Gets random disposition
+        randomAccess = getRandomInt(dispositionsList.length);
+        let disposition = dispositionsList[randomAccess];
+
         apiCall(baseDndURL, '/api/races/').then(data => {
 
             randomAccess = getRandomInt(data['results'].length);
@@ -210,7 +211,7 @@ function classGen(){
                 let speed = data['speed'];
                 let languages = data['languages'];
                 let race = data;
-                console.log(race);
+                //console.log(race);
 
                 if (data['language_options'] != undefined){
 
@@ -220,15 +221,15 @@ function classGen(){
 
                 }
 
-                let statArray = getStats(data);
+                let stats = getStats(data);
 
                 //Getting specific Class info.  
                 apiCall(baseDndURL, dndClass).then(data => {
 
                     let finalClass = data;
-                    console.log(finalClass);
+                    //console.log(finalClass);
 
-                    let health = getHP(statArray, finalClass, level);
+                    let health = getHP(stats, finalClass, level);
 
                     //Should be the last API call.
                     apiCall(baseDndURL, '/api/alignments/').then(data => {
@@ -238,29 +239,90 @@ function classGen(){
                         let alignment = data['results'][randomAccess]['name'];
 
                         //CREATE DOCUMENT
-
+ 
                         let display = document.getElementById('genLocation');
 
-                        var x = document.createElement("H2");
-                        var t = document.createTextNode(charName);
-                        x.appendChild(t);
+                        var x = document.createElement("DIV");
+                        x.setAttribute("class", 'genNPC');
+                        x.innerHTML = "<h2 style='text-align: center;' class='genTitle'>" + charName + "</h2>" +
+                                    "<h4 style='text-align: center;'>" + "Level " + level + " " + alignment + ' ' + race['name'] + " " + finalClass['name'] + "</h4>" +
+                                    "<p>" + "<b>Disposition: </b>" + disposition + "</p>" +
+                                    "<br>" + 
+                                    "<p>" + "<b>HP: </b>" + health + "</p>" + 
+                                    "<p>" + "<b>Strength: </b>" + stats[0] + "</p>" + 
+                                    "<p>" + "<b>Dexterity: </b>" + stats[1] + "</p>" + 
+                                    "<p>" + "<b>Constitution: </b>" + stats[2] + "</p>" + 
+                                    "<p>" + "<b>Intellegence: </b>" + stats[3] + "</p>" + 
+                                    "<p>" + "<b>Wisdom: </b>" + stats[4] + "</p>" + 
+                                    "<p>" + "<b>Charisma: </b>" + stats[5] + "</p>" +
+                                    "<br>" + 
+                                    "<p>" + "<b>Race: </b>" + race['name'] + "</p>" +
+                                    "<p>" + "<b>Speed: </b>" + speed + " ft.</p>" +  
+                                    "<p>" + "<b>Languages: </b>";
+
+                        //Fill in languages.
+                        for (var i = 0; i < languages.length; i = i + 1){
+                            //Only puts the comma in if it isn't the last one. 
+                            if(languages.length - i == 1){
+                                x.innerHTML = x.innerHTML + languages[i]['name'] + " ";
+                            }
+                            else{
+                                x.innerHTML = x.innerHTML + languages[i]['name'] + ", ";
+                            }
+                        }
+
+                        x.innerHTML = x.innerHTML + "<p>" + "<b>Racial Proficiencies: </b>";
+
+                        //Fill in skills.
+                        if (race['traits'].length == 0){
+
+                            x.innerHTML = x.innerHTML + "N/A "; //Humans have no Racial traits, so this has to be here or it'll end up blank. 
+
+                        }
+
+                        for (var i = 0; i < race['traits'].length; i = i + 1){
+                            //Only puts the comma in if it isn't the last one. 
+                            if(race['traits'].length - i == 1){
+                                x.innerHTML = x.innerHTML + race['traits'][i]['name'] + " ";
+                            }
+                            else{
+                                x.innerHTML = x.innerHTML + race['traits'][i]['name'] + ", ";
+                            }
+                        }
+
+                        x.innerHTML = x.innerHTML + "<p>" + "<b>Class Proficiencies: </b>";
+
+                        //Fill in class skills.
+                        for (var i = 0; i < finalClass['proficiencies'].length; i = i + 1){
+                            //Only puts the comma in if it isn't the last one. 
+                            if(finalClass['proficiencies'].length - i == 1){
+                                x.innerHTML = x.innerHTML + finalClass['proficiencies'][i]['name'] + " ";
+                            }
+                            else{
+                                x.innerHTML = x.innerHTML + finalClass['proficiencies'][i]['name'] + ", ";
+                            }
+                        }
+
+                        x.innerHTML = x.innerHTML + "<p>" + "<b>Saving Throws: </b>";
+
+                        //Fill in saving throws.
+                        for (var i = 0; i < finalClass['saving_throws'].length; i = i + 1){
+                            //Only puts the comma in if it isn't the last one. 
+                            if(finalClass['saving_throws'].length - i == 1){
+                                x.innerHTML = x.innerHTML + finalClass['saving_throws'][i]['name'] + " ";
+                            }
+                            else{
+                                x.innerHTML = x.innerHTML + finalClass['saving_throws'][i]['name'] + ", ";
+                            }
+                        }
+                        
+                        //Annoyingly, nothing else from the API comes through correct or accurate. I've provided all the information I can, but I can't get more
+                        //detailed than this. That is FRUSTRATING.
+
                         display.appendChild(x);
-
-                        var x = document.createElement("H4");
-                        //x.setAttribute("value", dndClass[i]['url']);
-                        var t = document.createTextNode("Level " + level + " " + alignment + ' ' + race['name'] + " " + finalClass['name']);
-                        x.appendChild(t);
-                        display.appendChild(x);
-
-
-
-
-
-
-
-
 
                         display.style.display = "flex";
+
 
                     });
                 });
@@ -367,7 +429,6 @@ function getHP(stats, finalClass, level){
                 
             }
         }
-
     }
     
     //Health mod is then added for every level.
@@ -376,6 +437,5 @@ function getHP(stats, finalClass, level){
         health = health + healthMod; 
 
     }
-
     return health;
 }

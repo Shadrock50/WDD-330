@@ -11,9 +11,8 @@
 
 <body>
 
-    <div>
-        <form">
-      
+    <div class="formDiv">
+        <form>
           <label for="genType">Select a Generation Type:</label>
           <select id="genType" name="genType" onchange="getType()">
             <option value="none" disabled selected>-- Choose One --</option>
@@ -47,7 +46,7 @@
           <select id="level" class="class reset" name="level" style="display: none;">
             <!-- Code is injected via JS -->
           </select>
-          <input type="submit" value="Generate" onclick="generateNPC()">
+          <input type="button" value="Generate" onclick="generateNPC()">
         </form>
     </div>
 

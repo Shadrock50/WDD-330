@@ -1,3 +1,14 @@
+body {
+  background-color: blanchedalmond;
+  background-image: url(/Final-Project/assets/dndLogo-removebg-preview.png);
+  background-repeat: no-repeat;
+}
+
+.formDiv{
+  border: black 4px solid;
+  border-radius: 15px;
+}
+
 input[type=text], select {
   width: 100%;
   padding: 12px 20px;
@@ -8,9 +19,9 @@ input[type=text], select {
   box-sizing: border-box;
 }
 
-input[type=submit] {
+input[type=button] {
   width: 100%;
-  background-color: #4CAF50;
+  background-color: rgb(99, 0, 0);
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -19,8 +30,8 @@ input[type=submit] {
   cursor: pointer;
 }
 
-input[type=submit]:hover {
-  background-color: #45a049;
+input[type=button]:hover {
+  background-color: maroon;
 }
 
 div {
@@ -35,4 +46,26 @@ div {
 
 .genLocation {
   flex-direction: column;
+  background-color: blanchedalmond;
+  padding: 5px;
+  margin: 0;
+  max-width: 100%;
+  background: transparent;
+
+}
+
+.genNPC {
+  background-color: rgb(236, 236, 236);
+  width: 100%;  
+  border: black 4px solid;
+  border-radius: 15px;
+  padding-top: 5px;
+  margin-top: 15px;
+  opacity: 1;
+}
+
+.genTitle {
+  padding-top: 5px;
+  margin-top: 0px;
+
 }
